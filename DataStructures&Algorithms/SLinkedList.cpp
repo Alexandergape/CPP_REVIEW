@@ -3,6 +3,7 @@
 //
 
 #include "iostream"
+#include "vector"
 
 using namespace std;
 
@@ -15,14 +16,6 @@ public:
     SNode(const E &e, SNode<E> *n) {
         element = e;
         next = n;
-    }
-
-    E getElement() {
-        return element;
-    }
-
-    SNode<E> getNext() {
-        return next;
     }
 
     void setNext(SNode<E> *n) {
@@ -39,22 +32,33 @@ private:
 template<typename E>
 class SLinkedList {
 public:
-    SLinkedList() : head(NULL) {
-        head = NULL;
-        tail = NULL;
-    } // constructor;
+    SLinkedList() : head(nullptr), tail(nullptr) {} //constructor
+
+    explicit SLinkedList(const vector<E> v){ //constructor
+//        head = nullptr;
+//        tail = nullptr;
+        int pos = 0;
+        for (auto i: v) {
+            this->add(pos, i);
+            pos++;
+        }
+    }
+
+    explicit SLinkedList(const E &e)/* : head(nullptr) */{ // constructor
+//        head = nullptr;
+//        tail = nullptr;
+        this->add(0, e);
+    }
 
     ~SLinkedList() {
         while (!isEmpty()) removeFront();
         Size = 0;
     }
 
-    bool isEmpty() const { return head == NULL; }// const means that this method wont change the object
-
-    const E &front() const { return head->elem; }
+    bool isEmpty() const { return head == nullptr; }// const means that this method wont change the object
 
     void addLast(const E &e) {
-        SNode<E> *N = new SNode<E>(e, NULL);
+        auto *N = new SNode<E>(e, nullptr);
         if (isEmpty()) head = N;
         else
             tail->setNext(N);
@@ -67,10 +71,10 @@ public:
         head = old->next;
         delete old;
         Size--;
-        if (Size == 0)tail = NULL;
+        if (Size == 0)tail = nullptr;
     }
 
-    E get(int pos) {
+    E get(int pos) const {
         return getNode(pos)->element;
     }
 
@@ -78,7 +82,7 @@ public:
         if (isEmpty()) return -1;
         SNode<E> *headCopy = head;
         int pos = -1;
-        while (headCopy != NULL) {
+        while (headCopy != nullptr) {
             if (headCopy->element == e) {
                 pos++;
                 break;
@@ -91,36 +95,55 @@ public:
 
     int update(int pos, const E &newVal) {
         if (pos < 0 || pos >= Size) return 1;
-        getNode(pos)->element = newVal;
+//        getNode(pos)->element = newVal;
+
+//        auto *neu=new SNode<E>(newVal, getNode(pos+1));
+//        getNode(pos - 1)->setNext(neu);
+//        neu.setNext(getNode(pos+1));
+        delete getNode(pos);
+
+        add(pos, newVal);
+
+//        SNode<E> *ant=getNode(pos-1);
+//        SNode<E> *sig=new SNode()
+//        ant->setNext()
         return 0;
     }
 
+
     int remove(int pos) {
         if (pos < 0 || pos >= Size) return 1;
-        if (pos == 0)
+        if (pos == 0) {
+            SNode<E> *aux = head;
             head = head->next;
-        else if (pos < Size - 1) {
+            delete aux;
+        } else if (pos < Size - 1) {
             SNode<E> *aux = getNode(pos - 1);
             aux->setNext(getNode(pos + 1));
-        } else
-            getNode(Size - 1)->setNext(NULL);
+            delete getNode(pos);
+        } else {
+            getNode(Size - 1)->setNext(nullptr);
+            delete getNode(Size - 1);
+        }
         Size--;
-        if (Size == 0)tail = NULL;
+        if (Size == 0)tail = nullptr;
         return 0; //SUCCESS
     }
 
     int add(int pos, const E &e) {
         if (pos < 0 || pos > Size) return 1;
+
         if (pos == 0)head = new SNode<E>(e, head);
         else if (pos < Size - 1) {
-            SNode<E> *neu = new SNode<E>(e, getNode(pos));
+            auto *neu = new SNode<E>(e, getNode(pos));
             getNode(pos - 1)->setNext(neu);
             neu->setNext(getNode(pos + 1));
         } else {
-            SNode<E> *aux = new SNode<E>(e, NULL);
+            auto *aux = new SNode<E>(e, nullptr);
             tail->setNext(aux);
             tail = aux;
         }
+
         if (Size == 0)tail = head;
         Size++;
         return 0;
@@ -133,9 +156,8 @@ private:
     SNode<E> *head;
     SNode<E> *tail;
 
-    SNode<E> *getNode(int pos) {
-        if (pos < 0 || pos >= Size) return NULL;
-
+    SNode<E> *getNode(int pos) const {
+        if (pos < 0 || pos >= Size) return nullptr;
         SNode<E> *copyHead = head;
         while (pos > 0) {
             copyHead = copyHead->next;
@@ -146,13 +168,12 @@ private:
 };
 
 template<typename E>
-void menu(SLinkedList<E> &myList) {
+void menu(SLinkedList<E> *myList) {
     int opt;
     string str;
 
     do {
         str.clear();
-        opt=0;
         cout << "\n1. Create" << endl;
         cout << "2. Read" << endl;
         cout << "3. Update" << endl;
@@ -170,34 +191,36 @@ void menu(SLinkedList<E> &myList) {
                 cin >> pos;
                 fflush(stdin);
                 getline(cin, str);
-                myList.add(pos, str);
+                myList->add(pos, str);
                 break;
             case 2:
                 cout << "All the elements in the list are: " << endl;
                 pos = 0;
-                while (pos < myList.size())
-                    cout << myList.get(pos++)<<", ";
+                while (pos < myList->size())
+                    cout << myList->get(pos++) << ", ";
                 break;
             case 3:
                 cout << "Enter the position & the new object" << endl;
                 cin >> pos;
                 fflush(stdin);
                 getline(cin, str);
-                myList.update(pos, str);
+                myList->update(pos, str);
                 break;
             case 4:
                 cout << "Enter the position of the object to delete" << endl;
                 cin >> pos;
-                myList.remove(pos);
+                myList->remove(pos);
                 break;
+            default:
+                cout << "\nBad Option!";
         }
     } while (opt != 0);
 }
 
-int main() {
-    SLinkedList<string> str;
-//    str.addLast("AHHH ...");
-    cout << "HELP";
-    menu(str);
-//    str.search()
-}
+//int vfdv() {
+////    auto *str=new SLinkedList<string>;
+////    str->addLast("AHHH ...");
+////    cout << "HELP";
+////    menu(str);
+//    return 0;
+//}
