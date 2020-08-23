@@ -13,7 +13,7 @@ class SLinkedList;
 template<typename E>
 class SNode {
 public:
-    SNode(const E &e, SNode<E> *n) {
+    SNode(const E e, SNode<E> *n) {
         element = e;
         next = n;
     }
@@ -74,7 +74,7 @@ public:
         if (Size == 0)tail = nullptr;
     }
 
-    E get(int pos) const {
+    E &get(int pos) const {
         return getNode(pos)->element;
     }
 

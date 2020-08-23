@@ -104,6 +104,7 @@ int main() {
     auto *c = new SLinkedList<string>(a);// a is not stored in c, idk why
     c->add(0, a);
     cout << c->get(0) << endl;
+//    c->get(0);
 
     auto *n = new SLinkedList<string>(v);
     cout << n->get(0) << endl;
@@ -140,10 +141,11 @@ int main() {
     cout << noi->get(0) << endl;
 //    return 0;
 
-    auto *truck1 = new truck;
+    auto *truck1 = new truck();
     truck1->setModel("KIMOMO");
     cout << truck1->getModel() << endl; //////////////
 
+    cout<<"\n\n";
     auto *trucks = new SLinkedList<truck>(*(new truck));
 //    trucks->add(0, *truck1);
     cout << trucks->get(0).getModel() << endl;//////////////
@@ -152,19 +154,33 @@ int main() {
     trucks->get(0).setModel("hui");// this does not work, and dont return errors
     cout << trucks->get(0).getModel() << endl;//////////////
 
-    trucks->update(0, *(new truck("fe", trucks->get(0).getYear())));
-    cout << trucks->get(0).getModel() << endl;//////////////
+    cout<<"\n";
+    trucks->add(1, *truck1);
+    cout<<trucks->get(1).getModel()<<endl;
+    trucks->get(1).setModel("new model 2030");
+    cout<<trucks->get(1).getModel()<<endl;
+    cout << truck1->getModel()<<endl;
+    truck1->setModel("2050");
+    cout<<trucks->get(1).getModel()<<endl;
+    cout << truck1<<endl;
+    cout << &(trucks->get(1)) << endl;
 
-    trucks->add(1, *(new truck/*("idk k", 99)*/));
-    cout << trucks->get(1).getModel() << endl;//////////////
-    cout << trucks->get(1).getYear() << endl;//////////////
 
-    cout << trucks->size() - 1 << endl;
+//    trucks->update(0, *(new truck("fe", trucks->get(0).getYear())));
+//    cout << trucks->get(0).getModel() << endl;//////////////
+//
+//    trucks->add(1, *(new truck/*("idk k", 99)*/));
+//    cout << trucks->get(1).getModel() << endl;//////////////
+//    cout << trucks->get(1).getYear() << endl;//////////////
+//
+//    cout << trucks->size() - 1 << endl;
+//
+//    trucks->add(2, *(new truck("idk w", 99)));
+//    (trucks->get(2)).setModel("IDK What"); // this does not work, and dont return errors
+//    trucks->get(2).setModel("J");
+//    cout << trucks->get(2).getModel() << endl;//////////////
 
-    trucks->add(2, *(new truck("idk w", 99)));
-    (trucks->get(2)).setModel("IDK What"); // this does not work, and dont return errors
-    trucks->get(2).setModel("J");
-    cout << trucks->get(2).getModel() << endl;//////////////
+
 //    cout << trucks->size();//////////////
 //    trucks->remove()
     return 0;
