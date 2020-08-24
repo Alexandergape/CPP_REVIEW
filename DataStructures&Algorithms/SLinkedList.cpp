@@ -100,7 +100,7 @@ public:
 //        auto *neu=new SNode<E>(newVal, getNode(pos+1));
 //        getNode(pos - 1)->setNext(neu);
 //        neu.setNext(getNode(pos+1));
-        delete getNode(pos);
+        remove(pos);
 
         add(pos, newVal);
 

@@ -8,6 +8,8 @@
 #include "second.h"
 #include "DataStructures&Algorithms/SLinkedList.cpp"
 #include "vector"
+#include "list"
+#include "iterator"
 
 //typedef long long ll;
 //
@@ -116,25 +118,8 @@ int main() {
 
     cout << o->get(0) << endl;//////////////
     cout << o->size() << endl;//////////////
-    o->update(1, 98);
+    o->update(0, 98);
     cout << o->get(1) << endl;//////////////
-
-
-//    auto nu=new SLinkedList<num>;
-//    num *u=new num;
-//    nu->add(0, *(new num));
-//    cout<<endl<<nu->get(0)n<<endl;
-//    nu->get(0).ed(9);
-//    cout<<endl<<nu->get(0).n<<endl;
-
-
-
-    SLinkedList m(v); // not sure if this is the correct way to initialize
-    cout << m.get(0) << endl;
-
-    auto ah = new SLinkedList<int>;// not sure if this is the correct way to initialize
-    ah->add(0, 89);
-    cout << ah->get(0) << endl;
 
     auto *noi = new SLinkedList<float>;
     noi->add(0, 9.9);
@@ -148,14 +133,48 @@ int main() {
     cout<<"\n\n";
     auto *trucks = new SLinkedList<truck>(*(new truck));
 //    trucks->add(0, *truck1);
-    cout << trucks->get(0).getModel() << endl;//////////////
-    truck1->setModel("fe");
-    cout << truck1->getModel() << endl;//////////////
-    trucks->get(0).setModel("hui");// this does not work, and dont return errors
-    cout << trucks->get(0).getModel() << endl;//////////////
+            cout << trucks->get(0).getModel() << endl;//////////////
+            truck1->setModel("fe");
+            cout << truck1->getModel() << endl;//////////////
+            trucks->get(0).setModel("hui");// this does not work, and dont return errors
+            cout << trucks->get(0).getModel() << endl;//////////////
+
+            trucks->add(1, *truck1);
+            trucks->get(1).setModel("new m");
+            cout << truck1->getModel() << endl;
+            cout << trucks->get(1).getModel() << endl;
+
 
     cout<<"\n";
-    trucks->add(1, *truck1);
+    trucks->add(0, *truck1);
+    cout << &truck1 << endl;
+    cout << &trucks << endl;
+//    cout << &(trucks->get(/*trucks->size()-*/0)) << endl;
+    trucks->addLast(*truck1);
+
+        //    cout << &trucks->get(trucks->size()-1) << endl;
+        //    trucks->addLast(*truck1);
+        //    cout << &trucks->get(trucks->size()-1) << endl;
+        //    cout << trucks->size() << endl;
+
+    auto *trs=new vector<truck>();
+    trs->push_back(*truck1);
+    trs->push_back(*(new truck()));
+    cout << truck1->getModel() << endl;
+    cout << trs->at(0).getModel() << endl;
+    cout << trs->at(1).getModel() << endl;
+    truck1->setModel("3030");
+    cout << truck1->getModel() << endl;
+    cout << trs->at(0).getModel() << endl;
+    trs->at(0).setModel("3040");
+    cout << truck1->getModel() << endl;
+    cout << trs->at(0).getModel() << endl;
+    cout << trs->size() << endl;
+
+
+    cout << "shshsh" << endl;
+
+
     cout<<trucks->get(1).getModel()<<endl;
     trucks->get(1).setModel("new model 2030");
     cout<<trucks->get(1).getModel()<<endl;
@@ -163,7 +182,7 @@ int main() {
     truck1->setModel("2050");
     cout<<trucks->get(1).getModel()<<endl;
     cout << truck1<<endl;
-    cout << &(trucks->get(1)) << endl;
+//    cout << &(trucks->get(1)) << endl;
 
 
 //    trucks->update(0, *(new truck("fe", trucks->get(0).getYear())));
@@ -175,10 +194,10 @@ int main() {
 //
 //    cout << trucks->size() - 1 << endl;
 //
-//    trucks->add(2, *(new truck("idk w", 99)));
-//    (trucks->get(2)).setModel("IDK What"); // this does not work, and dont return errors
+    trucks->add(2, *(new truck("idk w", 99)));
+    (trucks->get(2)).setModel("IDK What"); // this does not work, and dont return errors
 //    trucks->get(2).setModel("J");
-//    cout << trucks->get(2).getModel() << endl;//////////////
+    cout << trucks->get(2).getModel() << endl;//////////////
 
 
 //    cout << trucks->size();//////////////
