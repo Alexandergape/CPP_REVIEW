@@ -13,7 +13,7 @@ class SLinkedList;
 template<typename E>
 class SNode {
 public:
-    SNode(const E e, SNode<E> *n) {
+    SNode(E *&e, SNode<E> *n) {
         element = e;
         next = n;
     }
@@ -23,7 +23,7 @@ public:
     }
 
 private:
-    E element;
+    E *element;
     SNode<E> *next;
 
     friend class SLinkedList<E>;
@@ -34,7 +34,7 @@ class SLinkedList {
 public:
     SLinkedList() : head(nullptr), tail(nullptr) {} //constructor
 
-    explicit SLinkedList(const vector<E> v){ //constructor
+    explicit SLinkedList(const vector<E> *&v){ //constructor
 //        head = nullptr;
 //        tail = nullptr;
         int pos = 0;
@@ -44,7 +44,7 @@ public:
         }
     }
 
-    explicit SLinkedList(const E &e)/* : head(nullptr) */{ // constructor
+    explicit SLinkedList(E *&e)/* : head(nullptr) */{ // constructor
 //        head = nullptr;
 //        tail = nullptr;
         this->add(0, e);
@@ -57,7 +57,7 @@ public:
 
     bool isEmpty() const { return head == nullptr; }// const means that this method wont change the object
 
-    void addLast(const E &e) {
+    void addLast(E *&e) {
         auto *N = new SNode<E>(e, nullptr);
         if (isEmpty()) head = N;
         else
@@ -74,7 +74,7 @@ public:
         if (Size == 0)tail = nullptr;
     }
 
-    E &get(int pos) const {
+    E *get(int pos) const {
         return getNode(pos)->element;
     }
 
@@ -130,7 +130,7 @@ public:
         return 0; //SUCCESS
     }
 
-    int add(int pos, const E &e) {
+    int add(int pos, E *&e) {
         if (pos < 0 || pos > Size) return 1;
 
         if (pos == 0)head = new SNode<E>(e, head);

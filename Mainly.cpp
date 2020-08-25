@@ -31,11 +31,13 @@
 
 using namespace std;
 
-struct num{
-    num(){n=1;}
+struct num {
+    num() { n = 1; }
+
     int n;
-    void ed(int nu){
-        n=nu;
+
+    void ed(int nu) {
+        n = nu;
     }
 };
 
@@ -78,7 +80,6 @@ auto findMin(A a, B b) -> decltype(a < b ? a : b) {
 }
 
 
-
 // driver function to test various inference
 int main() {
     // This call returns 3.44 of double type
@@ -98,31 +99,42 @@ int main() {
 
 //    vector<string> st{"ahh df"};
 //    SLinkedList<string> a=new SLinkedList<string>(st);
-    string a = "one";
-    vector<string> v{a, "help me"};
+    string *h;
+    h = new string;
+    h->append("vdfv fdv");
+    *h = "onewd";
+//    string *a = "one";
+    vector<string> *v;//{h, "help me"};
+    v = new vector<string>;
+//    v={h, "help me"};
+    v->push_back(*h);
+    v->push_back("help me");
 
     // when creating a new SLinkedList is recommended to initialize using new, to avoid memory problems
 
-    auto *c = new SLinkedList<string>(a);// a is not stored in c, idk why
-    c->add(0, a);
-    cout << c->get(0) << endl;
+//    auto *c = new SLinkedList<string>(*h);// a is not stored in c, idk why
+//    c->add(0, h);
+//    c->add(0, "nfd");
+//    cout << c->get(0) << endl;
 //    c->get(0);
 
-    auto *n = new SLinkedList<string>(v);
-    cout << n->get(0) << endl;
-    cout << n->get(1) << endl;
+//    auto *n = new SLinkedList<string>(v);
+//    cout << n->get(0) << endl;
+//    cout << n->get(1) << endl;
 
-    vector<int> in{8, 4};
-    in.push_back(9);
-    auto *o = new SLinkedList<int>(in); //working fine
-
-    cout << o->get(0) << endl;//////////////
-    cout << o->size() << endl;//////////////
-    o->update(0, 98);
-    cout << o->get(1) << endl;//////////////
+        //    vector<int> in{8, 4};
+        //    in.push_back(9);
+        //    auto *o = new SLinkedList<int>(in); //working fine
+        //
+        //    cout << o->get(0) << endl;//////////////
+        //    cout << o->size() << endl;//////////////
+        //    o->update(0, 98);
+        //    cout << o->get(1) << endl;//////////////
 
     auto *noi = new SLinkedList<float>;
-    noi->add(0, 9.9);
+    auto *nine = new float;
+    *nine = 9.9;
+    noi->add(0, nine);
     cout << noi->get(0) << endl;
 //    return 0;
 
@@ -130,34 +142,35 @@ int main() {
     truck1->setModel("KIMOMO");
     cout << truck1->getModel() << endl; //////////////
 
-    cout<<"\n\n";
-    auto *trucks = new SLinkedList<truck>(*(new truck));
+    cout << "\n\n";
+    auto *tr=new truck;
+    auto *trucks = new SLinkedList<truck>(tr/*(new truck)*/);
 //    trucks->add(0, *truck1);
-            cout << trucks->get(0).getModel() << endl;//////////////
-            truck1->setModel("fe");
-            cout << truck1->getModel() << endl;//////////////
-            trucks->get(0).setModel("hui");// this does not work, and dont return errors
-            cout << trucks->get(0).getModel() << endl;//////////////
+    cout << trucks->get(0)->getModel() << endl;//////////////
+    truck1->setModel("fe");
+    cout << truck1->getModel() << endl;//////////////
+    trucks->get(0)->setModel("hui");// this does not work, and dont return errors
+    cout << trucks->get(0)->getModel() << endl;//////////////
 
-            trucks->add(1, *truck1);
-            trucks->get(1).setModel("new m");
-            cout << truck1->getModel() << endl;
-            cout << trucks->get(1).getModel() << endl;
+    trucks->add(1, truck1);
+    trucks->get(1)->setModel("new m");
+    cout << truck1->getModel() << endl;
+    cout << trucks->get(1)->getModel() << endl;
 
 
-    cout<<"\n";
-    trucks->add(0, *truck1);
+    cout << "\n";
+    trucks->add(0, truck1);
     cout << &truck1 << endl;
     cout << &trucks << endl;
 //    cout << &(trucks->get(/*trucks->size()-*/0)) << endl;
-    trucks->addLast(*truck1);
+    trucks->addLast(truck1);
 
-        //    cout << &trucks->get(trucks->size()-1) << endl;
-        //    trucks->addLast(*truck1);
-        //    cout << &trucks->get(trucks->size()-1) << endl;
-        //    cout << trucks->size() << endl;
+    //    cout << &trucks->get(trucks->size()-1) << endl;
+    //    trucks->addLast(*truck1);
+    //    cout << &trucks->get(trucks->size()-1) << endl;
+    //    cout << trucks->size() << endl;
 
-    auto *trs=new vector<truck>();
+    auto *trs = new vector<truck>();
     trs->push_back(*truck1);
     trs->push_back(*(new truck()));
     cout << truck1->getModel() << endl;
@@ -175,13 +188,13 @@ int main() {
     cout << "shshsh" << endl;
 
 
-    cout<<trucks->get(1).getModel()<<endl;
-    trucks->get(1).setModel("new model 2030");
-    cout<<trucks->get(1).getModel()<<endl;
-    cout << truck1->getModel()<<endl;
+    cout << trucks->get(1)->getModel() << endl;
+    trucks->get(1)->setModel("new model 2030");
+    cout << trucks->get(1)->getModel() << endl;
+    cout << truck1->getModel() << endl;
     truck1->setModel("2050");
-    cout<<trucks->get(1).getModel()<<endl;
-    cout << truck1<<endl;
+    cout << trucks->get(1)->getModel() << endl;
+    cout << truck1 << endl;
 //    cout << &(trucks->get(1)) << endl;
 
 
@@ -194,10 +207,16 @@ int main() {
 //
 //    cout << trucks->size() - 1 << endl;
 //
-    trucks->add(2, *(new truck("idk w", 99)));
-    (trucks->get(2)).setModel("IDK What"); // this does not work, and dont return errors
+
+auto *t=new truck("idk w", 99);
+    trucks->add(2, t);
+
+//    trucks->add(2, (truck *)(new truck("idk w", 99)));
+    (trucks->get(2))->setModel("IDK What"); // this does not work, and dont return errors
 //    trucks->get(2).setModel("J");
-    cout << trucks->get(2).getModel() << endl;//////////////
+//    t->setModel("yeah hah"); // this works now ahhaha
+    cout << t->getModel() << endl; // this works now too ahhaha
+    cout << trucks->get(2)->getModel() << endl;//////////////
 
 
 //    cout << trucks->size();//////////////
