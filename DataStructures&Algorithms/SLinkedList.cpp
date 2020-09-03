@@ -8,35 +8,40 @@
 using namespace std;
 
 template<typename E>
-class SLinkedList;
+struct SLinkedList;
 
 template<typename E>
-class SNode {
+struct SNode {
 public:
-    SNode(E *&e, SNode<E> *n) {
-        element = e;
-        next = n;
+    SNode(E &e, SNode<E> *Next) {
+        element = &e;
+        next = Next;
     }
 
-    void setNext(SNode<E> *n) {
-        next = n;
+    ~SNode() {
+        delete element;
+//        delete this; // error: doing this will delete the next element
+    }
+
+    void setElement(E &newElement) {
+        E *old = element;
+        element = &newElement;
+        delete old;
     }
 
 private:
     E *element;
-    SNode<E> *next;
+    SNode<E> *next = nullptr;
 
-    friend class SLinkedList<E>;
+    friend struct SLinkedList<E>;
 };
 
 template<typename E>
-class SLinkedList {
+struct SLinkedList {
 public:
     SLinkedList() : head(nullptr), tail(nullptr) {} //constructor
 
-    explicit SLinkedList(const vector<E> *&v){ //constructor
-//        head = nullptr;
-//        tail = nullptr;
+    explicit SLinkedList(const vector<E> &v) { //constructor
         int pos = 0;
         for (auto i: v) {
             this->add(pos, i);
@@ -44,41 +49,42 @@ public:
         }
     }
 
-    explicit SLinkedList(E *&e)/* : head(nullptr) */{ // constructor
-//        head = nullptr;
-//        tail = nullptr;
+    explicit SLinkedList(E &e) { // constructor
         this->add(0, e);
     }
 
     ~SLinkedList() {
         while (!isEmpty()) removeFront();
         Size = 0;
+        delete this;
     }
 
-    bool isEmpty() const { return head == nullptr; }// const means that this method wont change the object
+    bool isEmpty() const { return size() == 0; }// const means that this method wont change the object
 
-    void addLast(E *&e) {
-        auto *N = new SNode<E>(e, nullptr);
-        if (isEmpty()) head = N;
+    void addLast(E &e) {
+        auto *newest = new SNode<E>(e, nullptr);
+        if (isEmpty()) head = newest;
         else
-            tail->setNext(N);
-        tail = N;
+            tail->next = newest;
+        tail = newest;
         Size++;
     }
 
     void removeFront() {
+        if (isEmpty()) return;
         SNode<E> *old = head;
         head = old->next;
         delete old;
         Size--;
-        if (Size == 0)tail = nullptr;
+        if (Size == 0) tail = nullptr;
     }
 
-    E *get(int pos) const {
-        return getNode(pos)->element;
+    E &get(int pos) const {
+        return *getNode(pos).element;
     }
 
-    int search(const E &e) {
+//    virtual int search(const string name){return 0;};
+    int search(const E &e) { // not well implemented
         if (isEmpty()) return -1;
         SNode<E> *headCopy = head;
         int pos = -1;
@@ -93,58 +99,48 @@ public:
         return pos;
     }
 
-    int update(int pos, const E &newVal) {
-        if (pos < 0 || pos >= Size) return 1;
-//        getNode(pos)->element = newVal;
+    int update(int pos, E &newVal) {
+        if (pos < 0 || pos >= Size) return 1; // error
 
-//        auto *neu=new SNode<E>(newVal, getNode(pos+1));
-//        getNode(pos - 1)->setNext(neu);
-//        neu.setNext(getNode(pos+1));
-        remove(pos);
-
-        add(pos, newVal);
-
-//        SNode<E> *ant=getNode(pos-1);
-//        SNode<E> *sig=new SNode()
-//        ant->setNext()
-        return 0;
+        getNode(pos).setElement(newVal);
+        return 0; // succes
     }
 
 
     int remove(int pos) {
         if (pos < 0 || pos >= Size) return 1;
-        if (pos == 0) {
-            SNode<E> *aux = head;
+
+        SNode<E> *old = &getNode(pos);
+        if (pos == 0)
             head = head->next;
-            delete aux;
-        } else if (pos < Size - 1) {
-            SNode<E> *aux = getNode(pos - 1);
-            aux->setNext(getNode(pos + 1));
-            delete getNode(pos);
-        } else {
-            getNode(Size - 1)->setNext(nullptr);
-            delete getNode(Size - 1);
+        else if (pos < Size - 1)
+            getNode(pos - 1).next = &getNode(pos + 1);
+        else {
+            getNode(pos - 1).next = nullptr;
+            tail = &getNode(pos - 1);
         }
+        delete old;
         Size--;
-        if (Size == 0)tail = nullptr;
+        if (Size == 0) tail = nullptr;
         return 0; //SUCCESS
     }
 
-    int add(int pos, E *&e) {
-        if (pos < 0 || pos > Size) return 1;
+    int add(int pos, E &e) {
+        if (pos < 0 || pos > Size) return 1; // error: position not valid
 
+        SNode<E> *newest;
         if (pos == 0)head = new SNode<E>(e, head);
-        else if (pos < Size - 1) {
-            auto *neu = new SNode<E>(e, getNode(pos));
-            getNode(pos - 1)->setNext(neu);
-            neu->setNext(getNode(pos + 1));
+        else if (pos <= Size - 1) {
+            newest = new SNode<E>(e, &getNode(pos));
+            getNode(pos - 1).next = newest;
         } else {
-            auto *aux = new SNode<E>(e, nullptr);
-            tail->setNext(aux);
-            tail = aux;
+            newest = new SNode<E>(e, nullptr);
+            tail->next = newest;
+            tail = newest;
         }
 
-        if (Size == 0)tail = head;
+        if (Size == 0)
+            tail = head;
         Size++;
         return 0;
     }
@@ -156,71 +152,63 @@ private:
     SNode<E> *head;
     SNode<E> *tail;
 
-    SNode<E> *getNode(int pos) const {
-        if (pos < 0 || pos >= Size) return nullptr;
+    SNode<E> &getNode(int pos) const {
         SNode<E> *copyHead = head;
         while (pos > 0) {
             copyHead = copyHead->next;
             pos--;
         }
-        return copyHead;
+        return *copyHead;
     }
 };
 
-template<typename E>
-void menu(SLinkedList<E> *myList) {
-    int opt;
-    string str;
-
-    do {
-        str.clear();
-        cout << "\n1. Create" << endl;
-        cout << "2. Read" << endl;
-        cout << "3. Update" << endl;
-        cout << "4. Delete" << endl;
-        cout << "0. EXIT" << endl;
-        cout << "Enter your option: ";
-
-        fflush(stdin);
-        cin >> opt;
-
-        int pos;
-        switch (opt) {
-            case 1:
-                cout << "Enter the position & the object" << endl;
-                cin >> pos;
-                fflush(stdin);
-                getline(cin, str);
-                myList->add(pos, str);
-                break;
-            case 2:
-                cout << "All the elements in the list are: " << endl;
-                pos = 0;
-                while (pos < myList->size())
-                    cout << myList->get(pos++) << ", ";
-                break;
-            case 3:
-                cout << "Enter the position & the new object" << endl;
-                cin >> pos;
-                fflush(stdin);
-                getline(cin, str);
-                myList->update(pos, str);
-                break;
-            case 4:
-                cout << "Enter the position of the object to delete" << endl;
-                cin >> pos;
-                myList->remove(pos);
-                break;
-            default:
-                cout << "\nBad Option!";
-        }
-    } while (opt != 0);
-}
-
-//int vfdv() {
-////    auto *str=new SLinkedList<string>;
-////    str->addLast("AHHH ...");
-////    cout << "HELP";
-////    menu(str);
-//    return 0;
+//template<typename E>
+//void menuList(/*SLinkedList<E> *myList*/) {
+//    int opt;
+//    auto *myList=new SLinkedList<string>;
+//    auto *str=new string;
+//
+//    do {
+//        str->clear();
+//        cout << "\n1. Create" << endl;
+//        cout << "2. Read" << endl;
+//        cout << "3. Update" << endl;
+//        cout << "4. Delete" << endl;
+//        cout << "0. EXIT" << endl;
+//        cout << "Enter your option: ";
+//
+//        fflush(stdin);
+//        cin >> opt;
+//
+//        int pos;
+//        switch (opt) {
+//            case 1:
+//                cout << "Enter the position & the object" << endl;
+//                cin >> pos;
+//                fflush(stdin);
+//                getline(cin, *str);
+//                myList->add(pos, str);
+//                break;
+//            case 2:
+//                cout << "All the elements in the list are: " << endl;
+//                pos = 0;
+//                while (pos < myList->size())
+//                    cout << myList->get(pos++) << ", ";
+//                break;
+//            case 3:
+//                cout << "Enter the position & the new object" << endl;
+//                cin >> pos;
+//                fflush(stdin);
+//                getline(cin, *str);
+//                myList->update(pos, str);
+//                break;
+//            case 4:
+//                cout << "Enter the position of the object to delete" << endl;
+//                cin >> pos;
+//                myList->remove(pos);
+//                break;
+//            default:
+//                cout << "\nBad Option!";
+//        }
+//    } while (opt != 0);
 //}
