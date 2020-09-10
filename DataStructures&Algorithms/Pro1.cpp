@@ -27,10 +27,9 @@ private:
 };
 
 template<typename E>
-void men(SLinkedList<E> *myList) {
+void menuPro1(SLinkedList<E> *myList) {
     int opt;
     string str;
-
     do {
         str.clear();
         cout << "\n1. Create" << endl;
@@ -76,8 +75,3 @@ void men(SLinkedList<E> *myList) {
     } while (opt != 0);
 }
 
-//int main() {
-//    auto *artists= new SLinkedList<artist>;
-//
-//
-//}

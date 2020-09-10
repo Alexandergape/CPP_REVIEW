@@ -83,7 +83,6 @@ public:
         return *getNode(pos).element;
     }
 
-//    virtual int search(const string name){return 0;};
     int search(const E &e) { // not well implemented
         if (isEmpty()) return -1;
         SNode<E> *headCopy = head;
