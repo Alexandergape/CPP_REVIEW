@@ -11,14 +11,14 @@ template<typename E>
 struct SLinkedList;
 
 template<typename E>
-struct SNode {
+struct LNode {
 public:
-    SNode(E &e, SNode<E> *Next) {
+    LNode(E &e, LNode<E> *Next) {
         element = &e;
         next = Next;
     }
 
-    ~SNode() {
+    ~LNode() {
         delete element;
 //        delete this; // error: doing this will delete the next element
     }
@@ -31,7 +31,7 @@ public:
 
 private:
     E *element;
-    SNode<E> *next = nullptr;
+    LNode<E> *next = nullptr;
 
     friend struct SLinkedList<E>;
 };
@@ -62,7 +62,7 @@ public:
     bool isEmpty() const { return size() == 0; }// const means that this method wont change the object
 
     void addLast(E &e) {
-        auto *newest = new SNode<E>(e, nullptr);
+        auto *newest = new LNode<E>(e, nullptr);
         if (isEmpty()) head = newest;
         else
             tail->next = newest;
@@ -72,7 +72,7 @@ public:
 
     void removeFront() {
         if (isEmpty()) return;
-        SNode<E> *old = head;
+        LNode<E> *old = head;
         head = old->next;
         delete old;
         Size--;
@@ -85,7 +85,7 @@ public:
 
     int search(const E &e) { // not well implemented
         if (isEmpty()) return -1;
-        SNode<E> *headCopy = head;
+        LNode<E> *headCopy = head;
         int pos = -1;
         while (headCopy != nullptr) {
             if (headCopy->element == e) {
@@ -109,7 +109,7 @@ public:
     int remove(int pos) {
         if (pos < 0 || pos >= Size) return 1;
 
-        SNode<E> *old = &getNode(pos);
+        LNode<E> *old = &getNode(pos);
         if (pos == 0)
             head = head->next;
         else if (pos < Size - 1)
@@ -127,13 +127,13 @@ public:
     int add(int pos, E &e) {
         if (pos < 0 || pos > Size) return 1; // error: position not valid
 
-        SNode<E> *newest;
-        if (pos == 0)head = new SNode<E>(e, head);
+        LNode<E> *newest;
+        if (pos == 0)head = new LNode<E>(e, head);
         else if (pos <= Size - 1) {
-            newest = new SNode<E>(e, &getNode(pos));
+            newest = new LNode<E>(e, &getNode(pos));
             getNode(pos - 1).next = newest;
         } else {
-            newest = new SNode<E>(e, nullptr);
+            newest = new LNode<E>(e, nullptr);
             tail->next = newest;
             tail = newest;
         }
@@ -146,13 +146,17 @@ public:
 
     int size() const { return Size; }
 
+    E & operator[] (int at){
+        return *get(at);
+    }
+
 private:
     int Size = 0;
-    SNode<E> *head;
-    SNode<E> *tail;
+    LNode<E> *head;
+    LNode<E> *tail;
 
-    SNode<E> &getNode(int pos) const {
-        SNode<E> *copyHead = head;
+    LNode<E> &getNode(int pos) const {
+        LNode<E> *copyHead = head;
         while (pos > 0) {
             copyHead = copyHead->next;
             pos--;

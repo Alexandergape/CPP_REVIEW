@@ -183,34 +183,26 @@ public:
         vertices->at(pos);
     }
 
-    auto idk(/*Vertex<E> & Vertex*/){
-        //AdjMatrix.
-//        ptrdiff_t pos = distance(vertices->begin(), find(vertices->begin(), vertices->end(), Vertex));
-//        cout << endl << pos << endl;
-        int n1=10, n2 = 0;
-        try {
-            if (n2 == 0)
-                throw "Division by 0!";//error message
-            else cout<< n1 << '/' << n2 << '=' << n1/n2;
-        }catch (const char* excep){
-//        cout << typeid(excep).name();
-            cout << "Error: "<< excep<< endl;
-        }
+    int ** getAdjMatrix(){
+        int **matrix=*new int[vertices->size()];
+        for(int i=0;i<vertices->size();i++)
+            matrix[i]=new int;
 
-        if (int i = 4; i % 2 == 0  )
-            cout << i << " is even number" << endl;
-        cin >> n2;
-        if(n2==0) return 0.5;
-        return 5;
+        // for(Vertex<E> *vertex=vertices->begin(); vertex!=vertices->end(); vertex++)
+        //     for(Edge<E> *edge=vertex->edges->begin(); edge!=vertex->edges->end(); edge++)
+        //         matrix[i][j]=1;
+
+//        for(Vertex<E> *vertex: vertices)
+//            for(Edge<E> *edge: vertex)
+//                if(edge->origin)
+//                    matrix[]
+//            for(Vertex<E> *v2: vertices)
+//                if()
+        return matrix;
     }
 
 private:
     int size = 0;
     vector<Vertex<E>> *vertices;
     vector<vector<int>> AdjMatrix;
-
-//    Template <typename ...int>
-//    void FoldPrint(int&&... args) {
-//        (cout<< ... << forward<int>(args));
-//    }
 };

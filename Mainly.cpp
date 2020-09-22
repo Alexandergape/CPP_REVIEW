@@ -8,6 +8,13 @@
 #include "iterator"
 #include "DataStructures&Algorithms/BinarySearchTree.cpp"
 #include "DataStructures&Algorithms/Graphs/Graph.cpp"
+#include "DataStructures&Algorithms/Stack.h"
+#include "DataStructures&Algorithms/Queue.h"
+#include "DataStructures&Algorithms/SortMethods.cpp"
+#include "DataStructures&Algorithms/SearchMethods.h"
+#include "DataStructures&Algorithms/PriorityQueue.h"
+//#include "DataStructures&Algorithms/Stack.cpp"
+//#include "DataStructures&Algorithms/Queue.cpp"
 
 using namespace std;
 
@@ -52,6 +59,10 @@ public:
 
     bool operator>(const truck &AnotherTruck) const {
         return (this->model.compare(AnotherTruck.model) > 0);
+    }
+
+    bool operator!=(const truck &AnotherTruck) const {
+        return (this->model != AnotherTruck.model);
     }
 
     string getModel() {
@@ -190,13 +201,34 @@ int main() {
     else if (*truck1 > *tr2) cout << "truck1 is greater than tr2..." << endl;
     else cout << "truck1 is equal to tr2..." << endl;
 
+//    register g
+    trucks->get(0).getModel();
 
-    auto *graph=new Graph<double>();
+    auto *graph = new Graph<double>();
 //    graph->
-    auto aut= graph->idk();
+    //auto aut= graph->idk();
 
 //    menuMainly();
 //    menuTree();
+
+
+
+    testStack();
+    testQueue();
+
+    QuickSort(*trs, 0, int(trs->size() - 1));
+//    merge(*trs, 0, 1, 2);
+    mergeSort(*trs, 0, int(trs->size() - 1));
+
+
+    trs->push_back(*truck1);
+    cout << endl << int(trs->size());
+    cout << endl << "Founded at: " << IterativeBinarySearch(*trs, *truck1) << endl;
+    cout << endl << "Founded at: " << RecursiveBinarySearch(*trs, 0, int(trs->size()), *truck1) << endl;
+    cout << endl << "Founded at: " << BinarySearch(*trs, *truck1) << endl;
+
+    mainPQ();
+
     return 0;
 }
 

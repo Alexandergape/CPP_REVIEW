@@ -15,6 +15,7 @@ template<typename E>
 class Node {
 private:
     friend class BinarySearchTree<E>;
+
     E *element;
     Node<E> *parent;
     Node<E> *left;
@@ -164,12 +165,19 @@ public:
             cout << "Tree is empty..." << endl;
             return nullptr;
         }
-        auto *nodes = new vector<Node<E> *>;
-        inOrder(*root, *nodes);
-        for (Node<E> *node: *nodes)
-            if (*node->element == element)
-                return node;
-        cout << "Not found..." << endl;
+
+        Node<E> *aux = root;
+        while (aux != nullptr) {
+            if (*aux->element == element) return aux;
+            else if (*aux->element < element && aux->right)
+                aux = aux->right;
+            else if (aux->left)
+                aux = aux->left;
+            else {
+                cout << "Not found..." << endl;
+                return nullptr;
+            }
+        }
         return nullptr;
     }
 
