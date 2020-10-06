@@ -2,7 +2,7 @@
 // Created by Alexander P on 20/08/11.
 //
 
-#include "my_header"
+//#include "my_header"
 #include "SLinkedList.cpp"
 
 using namespace std;

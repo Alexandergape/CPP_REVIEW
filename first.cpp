@@ -8,8 +8,8 @@
 #include <cstdlib>//
 #include <cctype>
 #include <cstring>
-#include <conio.h>
-#include <windows.h>
+//#include <conio.h>
+//#include <windows.h>
 
 //#include <string>//
 //#include <limits>//
