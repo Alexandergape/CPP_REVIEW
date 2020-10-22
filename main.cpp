@@ -1,3 +1,5 @@
+// /home/alexander/.local/share/CMakeTools/cmake-tools-kits.json
+
 #include <utility>
 
 #include "my_header"  //here are all the most important libraries
@@ -7,7 +9,8 @@
 #include "list"
 #include "iterator"
 #include "DataStructures&Algorithms/BinarySearchTree.cpp"
-#include "DataStructures&Algorithms/Graphs/Graph.cpp"
+// #include "DataStructures&Algorithms/Graphs/Graph.cpp"
+#include "DataStructures&Algorithms/Graphs/Main.cpp"
 #include "DataStructures&Algorithms/Stack.h"
 #include "DataStructures&Algorithms/Queue.h"
 #include "DataStructures&Algorithms/SortMethods.cpp"
@@ -72,6 +75,10 @@ public:
     void setModel(string Model) {
         model.clear();
         this->model = std::move(Model);
+    }
+
+    void setYear(int year){
+        this->year=year;
     }
 
     int getYear() const {
@@ -204,7 +211,7 @@ int main() {
 //    register g
     trucks->get(0).getModel();
 
-    auto *graph = new Graph<double>();
+    // auto *graph = new Graph<double>();
 //    graph->
     //auto aut= graph->idk();
 
@@ -227,7 +234,16 @@ int main() {
     cout << endl << "Founded at: " << RecursiveBinarySearch(*trs, 0, int(trs->size()), *truck1) << endl;
     cout << endl << "Founded at: " << BinarySearch(*trs, *truck1) << endl;
 
+    trucks->add(0, *(new truck()));
+    trucks->get(0).setModel("fdvfjvb");
+    trucks->get(0).setYear(78);
+    
+    cout << trucks->get(0).getModel() << endl;
+    cout << trucks->get(0).getYear() << endl;
+
     mainPQ();
+
+    mainMain();
 
     return 0;
 }
