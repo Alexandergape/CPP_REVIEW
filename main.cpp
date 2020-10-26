@@ -245,6 +245,10 @@ int main() {
 
     mainMain();
 
+
+    menuTree();
+    cout << '\n';
+
     return 0;
 }
 
@@ -274,8 +278,8 @@ void menuTree() {
                 cout << "All elements listed: " << endl;
                 auto elements = nums->inOrder();
                 if (!elements.empty())
-                    for (int i: elements)
-                        cout << i << ", ";
+                    for (int *i: elements)
+                        cout << *i << ", ";
             }
                 break;
             case 3: {
