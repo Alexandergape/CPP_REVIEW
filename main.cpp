@@ -2,18 +2,18 @@
 
 #include <utility>
 
-#include "my_header"  //here are all the most important libraries
+#include "my_header" //here are all the most important libraries
 #include "second.h"
-#include "DataStructures&Algorithms/SLinkedList.cpp"
+#include "DataStructures&Algorithms/SLinkedList.h"
 #include "vector"
 #include "list"
 #include "iterator"
-#include "DataStructures&Algorithms/BinarySearchTree.cpp"
+#include "DataStructures&Algorithms/BinarySearchTree.h"
 // #include "DataStructures&Algorithms/Graphs/Graph.cpp"
 #include "DataStructures&Algorithms/Graphs/Main.cpp"
 #include "DataStructures&Algorithms/Stack.h"
 #include "DataStructures&Algorithms/Queue.h"
-#include "DataStructures&Algorithms/SortMethods.cpp"
+#include "DataStructures&Algorithms/SortMethods.h"
 #include "DataStructures&Algorithms/SearchMethods.h"
 #include "DataStructures&Algorithms/PriorityQueue.h"
 //#include "DataStructures&Algorithms/Stack.cpp"
@@ -21,75 +21,89 @@
 
 using namespace std;
 
-struct num {
+struct num
+{
     num() : n(1) {}
 
     int n;
 
-    void ed(int nu) {
+    void ed(int nu)
+    {
         n = nu;
     }
 };
 
-
-struct truck {
+struct truck
+{
 private:
     string model;
     int year;
     //SLinkedList<song> songs; // just an idea
 public:
-    truck() : year(5), model("CHEVRON") {//the default values are 5 and CHEVRON, is the same as the next 2 lines
+    truck() : year(5), model("CHEVRON")
+    { //the default values are 5 and CHEVRON, is the same as the next 2 lines
     }
 
-    truck(string mod, int yeah) {
+    truck(string mod, int yeah)
+    {
         model = std::move(mod);
         year = yeah;
     }
 
-    ~truck() {
-//        model.clear(); // // not necessary
-//        year=-1; // not necessary
-//        delete this; // not necessary
+    ~truck()
+    {
+        //        model.clear(); // // not necessary
+        //        year=-1; // not necessary
+        //        delete this; // not necessary
     }
 
-    bool operator<(const truck &AnotherTruck) const { // overriding '<' allows to sort in a list
+    bool operator<(const truck &AnotherTruck) const
+    { // overriding '<' allows to sort in a list
         return (this->model.compare(AnotherTruck.model) < 0);
     }
 
-    bool operator==(const truck &AnotherTruck) const {
+    bool operator==(const truck &AnotherTruck) const
+    {
         return (this->model == AnotherTruck.model);
     }
 
-    bool operator>(const truck &AnotherTruck) const {
+    bool operator>(const truck &AnotherTruck) const
+    {
         return (this->model.compare(AnotherTruck.model) > 0);
     }
 
-    bool operator!=(const truck &AnotherTruck) const {
+    bool operator!=(const truck &AnotherTruck) const
+    {
         return (this->model != AnotherTruck.model);
     }
 
-    string getModel() {
+    string getModel()
+    {
         return model;
     }
 
-    void setModel(string Model) {
+    void setModel(string Model)
+    {
         model.clear();
         this->model = std::move(Model);
     }
 
-    void setYear(int year){
-        this->year=year;
+    void setYear(int year)
+    {
+        this->year = year;
     }
 
-    int getYear() const {
+    int getYear() const
+    {
         return year;
     }
 };
 
 // A generic function which finds minimum of two values
 // return type is type of variable which is minimum
-template<class A, class B>
-auto findMin(A a, B b) -> decltype(a < b ? a : b) {
+template <class A, class B>
+auto findMin(A a, B b) -> decltype(a < b ? a : b)
+{
     return (a < b) ? a : b;
 }
 
@@ -98,27 +112,27 @@ void menuMainly();
 void menuTree();
 
 // driver function to test various inference
-int main() {
+int main()
+{
     // This call returns 3.44 of double type
-//    auto a=0.0,b=0.0;
-//
-//    cin>>a>>b;
-//    cout << findMin(4, 7) << endl;
-//    cout << typeid(findMin(4, 7)).name()<<endl;
-//
-//    // This call returns 3 of double type
-//    cout << findMin(5.4, 3) << endl;
-//    cout << typeid(findMin(5.4, 3)).name()<<endl;
-
+    //    auto a=0.0,b=0.0;
+    //
+    //    cin>>a>>b;
+    //    cout << findMin(4, 7) << endl;
+    //    cout << typeid(findMin(4, 7)).name()<<endl;
+    //
+    //    // This call returns 3 of double type
+    //    cout << findMin(5.4, 3) << endl;
+    //    cout << typeid(findMin(5.4, 3)).name()<<endl;
 
     string *h;
     h = new string;
     h->append("vdfv fdv");
     *h = "onewd";
-//    string *a = "one";
-    vector<string> *v;//{h, "help me"};
+    //    string *a = "one";
+    vector<string> *v; //{h, "help me"};
     v = new vector<string>;
-//    v={h, "help me"};
+    //    v={h, "help me"};
     v->push_back(*h);
     v->push_back("help me");
 
@@ -130,13 +144,13 @@ int main() {
 
     cout << "\n\n";
     auto *tr = new truck;
-    auto *trucks = new SLinkedList<truck>(*tr/*(new truck)*/);//trucks->add(0, *new truck());
-//    trucks->add(0, *truck1);
-    cout << trucks->get(0).getModel() << endl;//////////////
+    auto *trucks = new SLinkedList<truck>(*tr /*(new truck)*/); //trucks->add(0, *new truck());
+                                                                //    trucks->add(0, *truck1);
+    cout << trucks->get(0).getModel() << endl;                  //////////////
     truck1->setModel("fe");
-    cout << truck1->getModel() << endl;//////////////
-    trucks->get(0).setModel("hui");// this does not work, and dont return errors
-    cout << trucks->get(0).getModel() << endl;//////////////
+    cout << truck1->getModel() << endl;        //////////////
+    trucks->get(0).setModel("hui");            // this does not work, and dont return errors
+    cout << trucks->get(0).getModel() << endl; //////////////
 
     trucks->add(1, *truck1);
     trucks->get(1).setModel("new m");
@@ -146,16 +160,16 @@ int main() {
     cout << truck1->getModel() << endl;
     cout << trucks->get(1).getModel() << endl;
     cout << "trucks size: " << trucks->size() << endl;
-//    trucks->remove(1);
+    //    trucks->remove(1);
     cout << truck1->getModel() << endl;
 
-//    trucks->add(1, *new truck());
+    //    trucks->add(1, *new truck());
 
     cout << "\n";
-//    trucks->add(0, *truck1);
+    //    trucks->add(0, *truck1);
     cout << &truck1 << endl;
     cout << &trucks << endl;
-//    cout << &(trucks->get(/*trucks->size()-*/0)) << endl;
+    //    cout << &(trucks->get(/*trucks->size()-*/0)) << endl;
     trucks->addLast(*truck1);
 
     auto *trs = new vector<truck>();
@@ -165,7 +179,6 @@ int main() {
 
     cout << "shshsh" << endl;
 
-
     cout << trucks->get(1).getModel() << endl;
     trucks->get(1).setModel("new model 2030");
     cout << trucks->get(1).getModel() << endl;
@@ -173,28 +186,29 @@ int main() {
     truck1->setModel("2050");
     cout << trucks->get(1).getModel() << endl;
     cout << truck1 << endl;
-//    cout << &(trucks->get(1)) << endl;
-
+    //    cout << &(trucks->get(1)) << endl;
 
     auto *t = new truck("idk w", 99);
     trucks->add(2, *t);
 
-//    trucks->add(2, (truck *)(new truck("idk w", 99)));
-    (trucks->get(2)).setModel("IDK What"); // this does not work, and dont return errors
-//    trucks->get(2).setModel("J");
-//    t->setModel("yeah hah"); // this works now ahhaha
-    cout << t->getModel() << endl; // this works now too ahhaha
-    cout << trucks->get(2).getModel() << endl;//////////////
+    //    trucks->add(2, (truck *)(new truck("idk w", 99)));
+    (trucks->get(2)).setModel("IDK What");     // this does not work, and dont return errors
+                                               //    trucks->get(2).setModel("J");
+                                               //    t->setModel("yeah hah"); // this works now ahhaha
+    cout << t->getModel() << endl;             // this works now too ahhaha
+    cout << trucks->get(2).getModel() << endl; //////////////
 
     auto *ints = new SLinkedList<int>();
     int *ha = new int;
     *ha = 9;
     ints->add(0, *ha);
-    cout << endl << ints->get(0) << endl;
-//    ints->a
+    cout << endl
+         << ints->get(0) << endl;
+    //    ints->a
 
-//    for(truck tr: trucks)
-    cout << endl << "3##################" << endl;
+    //    for(truck tr: trucks)
+    cout << endl
+         << "3##################" << endl;
     for (int j = 0; j < trucks->size(); j++)
         cout << trucks->get(j).getModel() << ", " << trucks->get(j).getYear() << endl;
 
@@ -203,41 +217,45 @@ int main() {
     truck1->setModel("hg");
     tr2->setModel("aa");
     if (*truck1 < *tr2)
-        cout << endl << "truck1 is less than tr2..."
+        cout << endl
+             << "truck1 is less than tr2..."
              << endl; // you mus use '*' to access to the value instead of the memory location
-    else if (*truck1 > *tr2) cout << "truck1 is greater than tr2..." << endl;
-    else cout << "truck1 is equal to tr2..." << endl;
+    else if (*truck1 > *tr2)
+        cout << "truck1 is greater than tr2..." << endl;
+    else
+        cout << "truck1 is equal to tr2..." << endl;
 
-//    register g
+    //    register g
     trucks->get(0).getModel();
 
     // auto *graph = new Graph<double>();
-//    graph->
+    //    graph->
     //auto aut= graph->idk();
 
-//    menuMainly();
-//    menuTree();
-
-
+    //    menuMainly();
+    //    menuTree();
 
     testStack();
     testQueue();
 
     QuickSort(*trs, 0, int(trs->size() - 1));
-//    merge(*trs, 0, 1, 2);
+    //    merge(*trs, 0, 1, 2);
     mergeSort(*trs, 0, int(trs->size() - 1));
 
-
     trs->push_back(*truck1);
-    cout << endl << int(trs->size());
-    cout << endl << "Founded at: " << IterativeBinarySearch(*trs, *truck1) << endl;
-    cout << endl << "Founded at: " << RecursiveBinarySearch(*trs, 0, int(trs->size()), *truck1) << endl;
-    cout << endl << "Founded at: " << BinarySearch(*trs, *truck1) << endl;
+    cout << endl
+         << int(trs->size());
+    cout << endl
+         << "Founded at: " << IterativeBinarySearch(*trs, *truck1) << endl;
+    cout << endl
+         << "Founded at: " << RecursiveBinarySearch(*trs, 0, int(trs->size()), *truck1) << endl;
+    cout << endl
+         << "Founded at: " << BinarySearch(*trs, *truck1) << endl;
 
     trucks->add(0, *(new truck()));
     trucks->get(0).setModel("fdvfjvb");
     trucks->get(0).setYear(78);
-    
+
     cout << trucks->get(0).getModel() << endl;
     cout << trucks->get(0).getYear() << endl;
 
@@ -245,19 +263,46 @@ int main() {
 
     mainMain();
 
+    cout << 897;
 
-    menuTree();
+    // auto *li = new SLinkedList<string>;
+    // delete li; // error whwn deleting: free(): invalid pointer Aborted (core dumped)
+    // auto *q=new Queue<string>;
+    // delete q; // error whwn deleting: free(): invalid pointer Aborted (core dumped)
+
+    // auto *nu = new BinarySearchTree<int>();
+    // delete nu;
+    
+    // menuTree();
+
+    // auto *vec = new vector<string>; // no errors with none of them
+    // delete v;
+    // auto *st = new Stack<string>;
+    // delete st;
+    // Stack<string> ln;
+    // auto *gra = new Graph<string>;
+    // delete gra;
+    // Graph<string> hv;
+    // auto *trd = new truck();
+    // delete trd;
+    // truck jhv;
+
     cout << '\n';
 
+    // system("PAUSE");
+    system("read -p 'Press Enter to continue...' var");
     return 0;
 }
 
-void menuTree() {
-    auto *nums = new BinarySearchTree<int>;
+void menuTree()
+{
+    auto *nums = new BinarySearchTree<int>();
 
-    int opt, pos, *e1, *e2 = new int;
-    do {
-        cout << endl << "1. Create" << endl;
+    int opt, *e1, *e2 = new int;
+    do
+    {
+        cout << endl
+             << "1. Create" << endl;
         cout << "2. Read" << endl;
         cout << "3. Update" << endl;
         cout << "4. Delete" << endl;
@@ -267,55 +312,60 @@ void menuTree() {
         cout << "Your option: ";
         fflush(stdin);
         cin >> opt;
-        switch (opt) {
-            case 1:
-                e1 = new int;
-                fflush(stdin);
-                cin >> *e1;
-                nums->add(*e1);
-                break;
-            case 2: {
-                cout << "All elements listed: " << endl;
-                auto elements = nums->inOrder();
-                if (!elements.empty())
-                    for (int *i: elements)
-                        cout << *i << ", ";
-            }
-                break;
-            case 3: {
-                e1 = new int;
-                fflush(stdin);
-                cin >> *e1;
-                fflush(stdin);
-                cin >> *e2;
-                nums->update(*e2, *e1);
-                break;
-            }
-            case 4:
-                fflush(stdin);
-                cin >> *e2;
-                nums->remove(*e2);
-                break;
-            case 5:
-                fflush(stdin);
-                cin >> *e2;
-                if (nums->search(*e2))
-                    cout << nums->search(*e2)->getElement() << endl;
-//                else cout << "Not found..." << endl;
-                break;
+        switch (opt)
+        {
+        case 1:
+            e1 = new int;
+            fflush(stdin);
+            cin >> *e1;
+            nums->add(*e1);
+            break;
+        case 2:
+        {
+            cout << "All elements listed: " << endl;
+            auto elements = nums->inOrder();
+            if (!elements.empty())
+                for (int *i : elements)
+                    cout << *i << ", ";
+        }
+        break;
+        case 3:
+        {
+            e1 = new int;
+            fflush(stdin);
+            cin >> *e1;
+            fflush(stdin);
+            cin >> *e2;
+            nums->update(*e2, *e1);
+            break;
+        }
+        case 4:
+            fflush(stdin);
+            cin >> *e2;
+            nums->remove(*e2);
+            break;
+        case 5:
+            fflush(stdin);
+            cin >> *e2;
+            if (nums->search(*e2))
+                cout << nums->search(*e2)->getElement() << endl;
+            //                else cout << "Not found..." << endl;
+            break;
         }
     } while (opt != 0);
     delete e2;
     delete nums;
 }
 
-void menuMainly() {
-//    auto *list1 = new SLinkedList<Integer>;
+void menuMainly()
+{
+    //    auto *list1 = new SLinkedList<Integer>;
     auto *nums = new SLinkedList<int>;
 
-//    auto *trs = new SLinkedList<truck>;
+    //    auto *trs = new SLinkedList<truck>;
     int opt, pos, *e = new int;
-    do {
+    do
+    {
         cout << "1. Create" << endl;
         cout << "2. Read" << endl;
         cout << "3. Update" << endl;
@@ -326,37 +376,40 @@ void menuMainly() {
         cout << "Your option: ";
         fflush(stdin);
         cin >> opt;
-//        getline(cin, new int);
-        switch (opt) {
-            case 1:
-                fflush(stdin);
-                cin >> pos;
-                e = new int;
-                fflush(stdin);
-                cin >> *e;
-                nums->add(pos, *e);
-                break;
-            case 2:
-                cout << "All elements listed: " << endl;
-                for (int i = 0; i < nums->size(); i++)
-                    cout << nums->get(i) << endl;
-                break;
-            case 3: {
-                fflush(stdin);
-                cin >> pos;
-                e = new int;
-                fflush(stdin);
-                cin >> *e;
-                nums->update(pos, *e);
-                break;
-            }
-            case 4: {
-                fflush(stdin);
-                cin >> pos;
-                nums->remove(
-                        pos); // for just int values the value is not deleted, until you do manually: delete nums->get(pos); // so it does not have
-                break;
-            }
+        //        getline(cin, new int);
+        switch (opt)
+        {
+        case 1:
+            fflush(stdin);
+            cin >> pos;
+            e = new int;
+            fflush(stdin);
+            cin >> *e;
+            nums->add(pos, *e);
+            break;
+        case 2:
+            cout << "All elements listed: " << endl;
+            for (int i = 0; i < nums->size(); i++)
+                cout << nums->get(i) << endl;
+            break;
+        case 3:
+        {
+            fflush(stdin);
+            cin >> pos;
+            e = new int;
+            fflush(stdin);
+            cin >> *e;
+            nums->update(pos, *e);
+            break;
+        }
+        case 4:
+        {
+            fflush(stdin);
+            cin >> pos;
+            nums->remove(
+                pos); // for just int values the value is not deleted, until you do manually: delete nums->get(pos); // so it does not have
+            break;
+        }
         }
     } while (opt != 0);
 }

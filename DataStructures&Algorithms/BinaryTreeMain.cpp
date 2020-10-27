@@ -2,9 +2,8 @@
 // Created by Alexander P on 20/09/03.
 //
 
-#include "BinaryTreeMain.h"
 #include "iostream"
-#include "BinarySearchTree.cpp"
+#include "BinarySearchTree.h"
 
 using namespace std;
 
