@@ -18,6 +18,7 @@
 #include "DataStructures&Algorithms/PriorityQueue.h"
 //#include "DataStructures&Algorithms/Stack.cpp"
 //#include "DataStructures&Algorithms/Queue.cpp"
+#include "basics.cpp"
 
 using namespace std;
 
@@ -263,6 +264,10 @@ int main()
 
     mainMain();
 
+    // int* foo = new int(8);
+    // int& bar = *foo;
+    // cout << bar << '\t' << &bar << '\t' << endl;
+
     cout << 897;
 
     // auto *li = new SLinkedList<string>;
@@ -272,7 +277,7 @@ int main()
 
     // auto *nu = new BinarySearchTree<int>();
     // delete nu;
-    
+
     // menuTree();
 
     // auto *vec = new vector<string>; // no errors with none of them
@@ -290,7 +295,7 @@ int main()
     cout << '\n';
 
     // system("PAUSE");
-    system("read -p 'Press Enter to continue...' var");
+    // system("read -p 'Press Enter to continue...' var");
     return 0;
 }
 

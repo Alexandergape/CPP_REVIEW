@@ -3,7 +3,7 @@
 //
 
 //#include "my_header"
-#include "SLinkedList.cpp"
+#include "SLinkedList.h"
 
 using namespace std;
 

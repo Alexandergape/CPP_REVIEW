@@ -18,44 +18,24 @@ void add(int *&n)
 
 int mainMain()
 {
-    auto *a = new Graph<int>;
-    int *n = new int;
-    *n = 9;
-    cout << *n;
-    //    a->addNode(n);
-    auto *vec = new vector<int>;
-    vec->push_back(*n);
-    cout << vec->at(0) << endl;
-    vec->at(0)++;
-    cout << vec->at(0) << endl;
-    cout << *n << endl;
+//     auto *a = new Graph<int>;
+//     delete a;
+//     int *n = new int;
+//     *n = 9;
+//     cout << *n;
+//     //    a->addNode(n);
+//     auto *vec = new vector<int>;
+//     vec->push_back(*n);
+//     cout << vec->at(0) << endl;
+//     vec->at(0)++;
+//     cout << vec->at(0) << endl;
+//     cout << *n << endl;
 
-    auto *li = new list<int>;
-    li->push_back(*n);
-    li->front()++;
-    cout << endl
-         << li->front() << endl;
-    cout << *n << endl;
 
-    //    auto *list1=new SLinkedList<int>;
-    //    list1->add(0, n);
-    //    int *p=list1->get(0);
-    //    (*p)++;
-    //    list1->update(0, p);
-    //    cout << *list1->get(0)<< endl;
-    //    cout << *p << endl;
-    //    cout << *n << endl;
 
-    //    cout<<a->getNode(0)<< endl;
-    //    add(n);
-
-    // auto *graph = new Graph<string>();
-    // cout << 435;
-    // vector<string> b; //cout << 435;
-
-    Graph<int> intes;
+    // Graph<int> intes;
     Graph<string> graph; // problem when creating
-    SLinkedList<string> jfn; // problem when creating
+    // SLinkedList<string> jfn; // problem when creating
     // BinarySearchTree<int> fdg;
     // list<int> dv;
     // Stack<string> que;
@@ -66,28 +46,65 @@ int mainMain()
     graph.addVertex(*(new string("A")));
     graph.addVertex(*(new string("B")));
     graph.addVertex(*(new string("C")));
+    
 
     cout << endl
-         << graph.getVertex(1)->getElement() << endl;
+         << graph.getVertex(1).getElement() << endl;
 
     for (Vertex<string> *V : graph.getAllVertices())
-        cout << V->getElement() << '\t';
+        cout << *V->getElement() << '\t';
 
-    graph.getVertex(0)->addEdge(*graph.getVertex(1), 48);
-    cout << graph.getVertex(0)->getEdge(0).getLength() << endl;
+    // graph.getVertex()
+    graph.getVertex(0).addEdge(graph.getVertex(1), 48);
+    cout << graph.getVertex(0).getEdge(0).getLength() << endl;
 
     cout << "F" << endl;
-    for (Edge<string> *edge : graph.getVertex(0)->getEdges())
-    {
-        cout << edge->getDestination().getElement() << '\t';
-        cout << edge->getLength() << '\n';
-    }
-    for (Edge<string> *edge : graph.getVertex(1)->getEdges())
-    {
-        cout << edge->getDestination().getElement() << '\t';
-        cout << edge->getLength() << '\n';
-    }
+    // for (Edge<string> *edge : graph.getVertex(0).getEdges())
+    // {
+    //     cout << edge->getDestination().getElement() << '\t';
+    //     cout << edge->getLength() << '\n';
+    // }
+    // for (Edge<string> *edge : graph.getVertex(1).getEdges())
+    // {
+    //     cout << edge->getDestination().getElement() << '\t';
+    //     cout << edge->getLength() << '\n';
+    // }
+    // cout << endl;
+    graph.getVertex(1).addEdge(graph.getVertex(1), 81);
+    // for (Edge<string> *edge : graph.getVertex(1).getEdges())
+    // {
+    //     cout << edge->getDestination().getElement() << '\t';
+    //     cout << edge->getLength() << '\n';
+    // }
 
+    graph.getVertex(2).addEdge(graph.getVertex(0), 10);
+
+    // graph.pretty();
+    // cout << "\n remove edge\n";
+    // graph.getVertex(0).getEdges().clear();
+    // cout << graph.getVertex(0).getEdges().size() << endl;
+    // cout << graph.getVertex(0).getEdges().at(0) << endl;
+    // for(Edge<string> *edge : graph.getVertex(0).getEdges())
+    // {
+    //     cout << edge->getDestination().getElement() << '\t';
+    //     cout << edge->getLength() << '\n';
+    // }
+    graph.pretty();
+
+
+    // graph.deleteVertex(*graph.getVertex(0).getElement());
+    // graph.deleteVertex(*graph.getVertex(1).getElement());
+    // string iop= "ff";
+    // cout << "\nafter delete vertez A\n";
+    *graph.getVertex(0).getElement()="J";
+    // graph.getVertex(0).getEdge(0).getLength()=999.2;
+    graph.getVertex(0).addEdge(graph.getVertex(2), 8216);
+
+    graph.pretty();
+
+    // for (Vertex<string> *V : graph.getAllVertices())
+    //     cout << V->getElement() << '\t';
+    // cout << "\nSearch result:" << graph.searchVertex(iop);
     // graph->getVertex(0)->getEdges();
 
     cout << "\nGRAPH" << endl;

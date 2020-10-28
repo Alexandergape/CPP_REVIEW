@@ -3,7 +3,7 @@
 //
 #include <algorithm>
 #include "my_header"
-#include "lambdaFunction.h"
+#include "lambdaFunction.cpp"
 //#include "Shape.h"
 //#include "Circle.h"
 
@@ -104,7 +104,7 @@ void ShowArea(Shape& shape){
 
 
 // i order to make this run change 'M' to 'm' in the next line
-int Main(int argc, char **argv) {
+int MainBasics(/*int argc, char **argv*/) {
     string s1 = "I'm a string...\n";
     cout << s1;
 
@@ -253,6 +253,7 @@ int Main(int argc, char **argv) {
     cout << box << endl;
     Box box2(5, 5, 5);
     cout << "Box1 + Box2 = " << (box+box2) << endl;
+    cout << endl << box.operator const char *() << endl;
     cout << "Box1 == Box2 = " << (box==box2) << endl;
 
     //################################################
