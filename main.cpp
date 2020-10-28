@@ -229,13 +229,6 @@ int main()
     //    register g
     trucks->get(0).getModel();
 
-    // auto *graph = new Graph<double>();
-    //    graph->
-    //auto aut= graph->idk();
-
-    //    menuMainly();
-    //    menuTree();
-
     testStack();
     testQueue();
 
@@ -264,33 +257,10 @@ int main()
 
     mainMain();
 
-    // int* foo = new int(8);
-    // int& bar = *foo;
-    // cout << bar << '\t' << &bar << '\t' << endl;
-
-    cout << 897;
-
-    // auto *li = new SLinkedList<string>;
-    // delete li; // error whwn deleting: free(): invalid pointer Aborted (core dumped)
-    // auto *q=new Queue<string>;
-    // delete q; // error whwn deleting: free(): invalid pointer Aborted (core dumped)
-
-    // auto *nu = new BinarySearchTree<int>();
-    // delete nu;
-
-    // menuTree();
-
-    // auto *vec = new vector<string>; // no errors with none of them
-    // delete v;
-    // auto *st = new Stack<string>;
-    // delete st;
-    // Stack<string> ln;
-    // auto *gra = new Graph<string>;
-    // delete gra;
-    // Graph<string> hv;
-    // auto *trd = new truck();
-    // delete trd;
-    // truck jhv;
+    // cout << "Checking" << endl;
+    // cout << (bool)truck1 << '\t';
+    // delete truck1;
+    // cout << (bool)truck1 << '\t';
 
     cout << '\n';
 
