@@ -71,14 +71,35 @@ public:
                            // Because these are Vertices and don't need to be deleted.
     }
 
-    void deleteEdge(E &to, double length) // check later
+    void deleteEdge(Vertex<E> &to, double length) // check later
     {
-        for (Edge<E> edge : this->edges)
-            if ((edge.length == length) && /*(from == edge.origin || */ /*from == edge.destination) && */ (to == edge.destination /* || to == edge.origin*/))
+        int i = 0;
+        cout << endl;
+        for (Edge<E> *edge : this->edges)
+        {
+            cout << edge->length << '\t' << *edge->destination->element << endl;
+            if ((edge->length == length) && (*to.element == *edge->destination->element))
             {
                 delete edge;
+                edges.erase(edges.begin() + i);
                 break;
             }
+            i++;
+        }
+
+        i = 0;
+        cout << endl;
+        for (Edge<E> *edge : to.edges)
+        {
+            cout << edge->length << '\t' << *edge->destination->element << endl;
+
+            if ((edge->length == length) && (*this->element == *edge->destination->element))
+            {
+                to.edges.erase(to.edges.begin() + i);
+                break;
+            }
+            i++;
+        }
     }
 
     E &getElement() const
@@ -136,35 +157,11 @@ public:
 
     ~Graph()
     {
-        // for (Vertex<E> *vertex : vertices)
-        //     // for(Edge<E> *e: vertex->getEdges())
-        //     // vertex->getEdges().erase(vertex->getEdges().begin(), vertex->getEdges().end());
-        //     delete vertex->getEdges()
-
         for (int i = 0; i < vertices.size(); i++)
             delete vertices[i];
 
-        // while(size){
-        //     delete vertices.at(size-1);
-        //     // vertices.erase(vertices.begin());
-        //     size--;
-        // }
-
         vertices.clear();
         size = 0;
-
-        // vertices.clear();
-
-        // for (Vertex<E> *vertex : vertices)
-        //     delete vertex;
-        // vertices.clear();
-
-        // for (Vertex<E> *Vertex : vertices)
-        //     deleteVertex(*Vertex->element);
-        //        while (!isEmpty())
-        //            remove(vertices);
-        // size = 0;
-        // delete this; // NEVER MAKE THIS, this will produce: Segmentation Fault (core dumped)
     }
 
     bool deleteVertex(E &e /*Vertex<E> &vertex*/)
@@ -188,22 +185,16 @@ public:
             edgePos = 0;
             for (Edge<E> *e : V->edges)
             {
-                if (*e->getDestination().getElement() == *vertex->element)
+                if (e->getDestination().getElement() == *vertex->element)
                     V->edges.erase(V->edges.begin() + edgePos);
                 edgePos++;
             }
         }
-        // delete e;
 
         vertex->edges.clear();
-        // for (Edge<E> *e : vertex.edges)
-        //     delete e;
-        // vertex.deleteEdge(e);
         vertices.erase(vertices.begin() + pos);
-        delete vertex; // not sure
+        delete vertex;
         size--;
-        // for (Edge<E> *edge : Vertex.edges)
-        //     Vertex.deleteEdge();
     }
 
     bool isEmpty() const
@@ -282,21 +273,18 @@ public:
             for (int j = 0; j < size; j++)
                 matrix[i][j] = 0;
 
-        int cont, i = 0, j;
-        for (Vertex<E> *vertex1 : vertices)
-        // for(Vertex<E> *vertex1=vertices.begin(); vertex1!=vertices.end(); vertex1++)
+        int cont;
+
+        for (int i = 0; i < size; i++)
         {
-            j = 0;
-            for (Vertex<E> *vertex2 : vertices)
+            for (int j = i; j < size; j++)
             {
                 cont = 0;
-                for (Edge<E> *edge : vertex1->getEdges())
-                    if (edge->getDestination().getElement() == vertex2->getElement())
+                for (Edge<E> *edge : vertices[i]->getEdges())
+                    if (edge->getDestination().getElement() == vertices[j]->getElement())
                         cont++;
                 matrix[i][j] = cont;
-                j++;
             }
-            i++;
         }
         return completeMatrix(matrix);
     }
@@ -309,7 +297,7 @@ private:
     {
         for (int i = 1; i < size; i++)
         {
-            for (int j = 0; i < i; j++)
+            for (int j = 0; j < i; j++)
                 matrix[i][j] = matrix[j][i];
         }
         return matrix;

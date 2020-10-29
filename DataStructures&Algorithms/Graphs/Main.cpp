@@ -108,7 +108,7 @@ int mainMain()
     // Edge<string> edg;// you must not do it, there's no reason
 
 
-    // Vertex<string> vert;
+    // Vertex<string> vert; // to avoid copys of the object, this graph implementation just works with dinamic allocated objects
     auto *verte=new Vertex<string>(*new string("M"));
     auto *ver = new Vertex<string>(*(new string("new one")));
 
@@ -118,6 +118,9 @@ int mainMain()
     graph.addVertex(*ver);
 
     cout << "\nAdded new edges: \n";
+    graph.pretty();
+    // graph.getVertex(2).deleteEdge(graph.getVertex(0), 8216);
+    graph.deleteVertex(graph.getVertex(1).getElement());
     graph.pretty();
 
     cout << "\nGRAPH" << endl;
