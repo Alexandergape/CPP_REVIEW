@@ -65,7 +65,7 @@ public:
 
     ~Vertex()
     {
-        delete element;
+        // delete element; // enable if you want to delete the object instead of just removing it.
         if (!edges.empty())
             edges.clear(); // It's not necessary to delete the objects that the pointers on edges point to.
                            // Because these are Vertices and don't need to be deleted.
@@ -155,16 +155,23 @@ public:
 
     Graph() : size(0){};
 
-    ~Graph()
+    /* YOU are responsible to delete the element to be removed from this Graph.*/
+    ~Graph() 
     {
-        for (int i = 0; i < vertices.size(); i++)
-            delete vertices[i];
+        // for (int i = 0; i < vertices.size(); i++) // enable if you want to delete the object instead of just removing it.
+        //     delete vertices[i];
 
         vertices.clear();
         size = 0;
     }
 
-    bool deleteVertex(E &e /*Vertex<E> &vertex*/)
+    /**/
+    // void DELETEVertex(Vertex<E> &V){
+    //     eraseVertex(V.element);
+    //     delete *V;
+    // }
+
+    bool eraseVertex(E &e /*Vertex<E> &vertex*/)
     {
         int pos = searchVertex(e);
 
@@ -193,7 +200,7 @@ public:
 
         vertex->edges.clear();
         vertices.erase(vertices.begin() + pos);
-        delete vertex;
+        // delete vertex; // enable if you want to delete the object instead of just removing it.
         size--;
     }
 

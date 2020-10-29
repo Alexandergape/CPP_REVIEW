@@ -119,8 +119,14 @@ int mainMain()
 
     cout << "\nAdded new edges: \n";
     graph.pretty();
-    // graph.getVertex(2).deleteEdge(graph.getVertex(0), 8216);
-    graph.deleteVertex(graph.getVertex(1).getElement());
+    graph.getVertex(2).deleteEdge(graph.getVertex(0), 8216);
+    graph.eraseVertex(graph.getVertex(1).getElement());
+
+    string sa="UUU";
+    Vertex<string> V(sa);
+    graph.addVertex(V);
+
+    sa="fg g ht";
     graph.pretty();
 
     cout << "\nGRAPH" << endl;
