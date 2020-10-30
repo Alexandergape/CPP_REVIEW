@@ -18,6 +18,11 @@ template <typename E>
 struct Edge
 {
 public:
+    Edge(double Length, Vertex<E> &to) : length(Length), destination(&to) {}
+
+    ~Edge() = default; // as length isn't a pointer it doesn't need to be deleted, otherwise destination
+                       // is pointer but it is just that, not the object that it points to. So it's OK
+    
     double getLength() const
     {
         return length;
@@ -45,11 +50,6 @@ private:
     Vertex<E> *destination;
 
     // Edge() : length(-1.), destination(nullptr) {}
-
-    Edge(double Length, Vertex<E> &to) : length(Length), destination(&to) {}
-
-    ~Edge() = default; // as length isn't a pointer it doesn't need to be deleted, otherwise destination
-                       // is pointer but it is just that, not the object that it points to. So it's OK
 };
 
 template <typename E>
@@ -74,10 +74,8 @@ public:
     void deleteEdge(Vertex<E> &to, double length) // check later
     {
         int i = 0;
-        cout << endl;
         for (Edge<E> *edge : this->edges)
         {
-            cout << edge->length << '\t' << *edge->destination->element << endl;
             if ((edge->length == length) && (*to.element == *edge->destination->element))
             {
                 delete edge;
@@ -88,11 +86,8 @@ public:
         }
 
         i = 0;
-        cout << endl;
         for (Edge<E> *edge : to.edges)
         {
-            cout << edge->length << '\t' << *edge->destination->element << endl;
-
             if ((edge->length == length) && (*this->element == *edge->destination->element))
             {
                 to.edges.erase(to.edges.begin() + i);
@@ -141,6 +136,11 @@ public:
             to.edges.push_back(new Edge<E>(Length, *this));
     }
 
+    void addEdge(Edge<E> &edge)
+    {
+        addEdge(*edge.destination, edge.length);
+    }
+
 private:
     friend struct Graph<E>;
     E *element;
@@ -156,7 +156,7 @@ public:
     Graph() : size(0){};
 
     /* YOU are responsible to delete the element to be removed from this Graph.*/
-    ~Graph() 
+    ~Graph()
     {
         // for (int i = 0; i < vertices.size(); i++) // enable if you want to delete the object instead of just removing it.
         //     delete vertices[i];
@@ -234,6 +234,8 @@ public:
 
     void addVertex(E &element)
     {
+        // static Vertex<E> V(element);
+        // vertices.push_back(&V);
         vertices.push_back(new Vertex<E>(element));
         size++;
     }

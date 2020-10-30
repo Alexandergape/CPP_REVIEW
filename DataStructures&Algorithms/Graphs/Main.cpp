@@ -126,7 +126,12 @@ int mainMain()
     Vertex<string> V(sa);
     graph.addVertex(V);
 
-    sa="fg g ht";
+    sa="Editing Node Element";
+
+    Edge<string> edg(527.2, graph.getVertex(3));
+
+    graph.getVertex(4).addEdge(edg);
+
     graph.pretty();
 
     cout << "\nGRAPH" << endl;
