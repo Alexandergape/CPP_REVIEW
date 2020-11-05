@@ -11,6 +11,7 @@
 #include "DataStructures&Algorithms/BinarySearchTree.h"
 // #include "DataStructures&Algorithms/Graphs/Graph.cpp"
 #include "DataStructures&Algorithms/Graphs/Main.cpp"
+#include "DataStructures&Algorithms/Graphs/test1.cpp"
 #include "DataStructures&Algorithms/Stack.h"
 #include "DataStructures&Algorithms/Queue.h"
 #include "DataStructures&Algorithms/SortMethods.h"
@@ -21,6 +22,7 @@
 #include "basics.cpp"
 
 using namespace std;
+using std::cout;
 
 struct num
 {
@@ -78,7 +80,7 @@ public:
         return (this->model != AnotherTruck.model);
     }
 
-    string getModel()
+    string getModel() const
     {
         return model;
     }
@@ -99,6 +101,24 @@ public:
         return year;
     }
 };
+
+// this works as toString in Java
+ostream &operator<<(ostream &strm, const truck &t)
+{
+    return strm << "Model: " << t.getModel() << ", Year: " << t.getYear();
+}
+
+class clas
+{
+public:
+    int k;
+    int get() const { return k; }
+};
+
+ostream &operator<<(ostream &strm, const clas &t)
+{
+    return strm << "int: " << t.get();
+}
 
 // A generic function which finds minimum of two values
 // return type is type of variable which is minimum
@@ -246,6 +266,8 @@ int main()
     cout << endl
          << "Founded at: " << BinarySearch(*trs, *truck1) << endl;
 
+    cout << *truck1 << endl; // prints out: "Model: hg, Year: 5"
+
     trucks->add(0, *(new truck()));
     trucks->get(0).setModel("fdvfjvb");
     trucks->get(0).setYear(78);
@@ -263,9 +285,14 @@ int main()
     // cout << (bool)truck1 << '\t';
 
     cout << '\n';
+    string a = "777";
 
     // system("PAUSE");
     // system("read -p 'Press Enter to continue...' var");
+    mainTest();
+    Graph<int>::print(); // it's different to the next one
+    print(a);
+    cout << 8 << endl;
     return 0;
 }
 

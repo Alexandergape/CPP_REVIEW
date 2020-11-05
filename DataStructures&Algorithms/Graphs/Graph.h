@@ -298,6 +298,10 @@ public:
         return completeMatrix(matrix);
     }
 
+    static void print(){ // static, so you can call it without any instance of this class
+        cout << "well done\n";
+    }
+
 private:
     int size;
     vector<Vertex<E> *> vertices;
